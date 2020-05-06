@@ -3,6 +3,9 @@
 DataTorch is a scalable annotation platform build for sharing and creating
 datasets.
 
+Note: You must have a license key and the image pull secret for this chart to 
+work.
+
 ```bash
 helm repo add datatorch https://charts.datatorch.io
 helm install my-release datatorch/datatorch
