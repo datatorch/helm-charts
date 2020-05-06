@@ -6,4 +6,4 @@ rm datatorch-*.tgz
 helm repo index ../files-to-gh --url https://charts.datatorch.io
 git stash
 git checkout gh-pages
-yes | cp -rf ../files-to-gh ./
+yes | cp -rf ../files-to-gh/* ./
