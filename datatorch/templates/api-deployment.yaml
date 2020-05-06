@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: datatorch-api
-          image: gcr.io/datatorch/graphql:271
+          image: gcr.io/datatorch/graphql:{{ .Values.api.tag }}
           env:
             - name: LOGGER_LEVEL
               value: {{ .Values.backend.logging }}

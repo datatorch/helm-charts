@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: datatorch-webclient
-          image: gcr.io/datatorch/webclient:258
+          image: gcr.io/datatorch/webclient:{{ .Values.webclient.tag }}
           env:
             - name: API_FQDN
               value: {{ .Values.apiFQDN }}

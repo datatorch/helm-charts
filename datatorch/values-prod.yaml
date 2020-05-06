@@ -29,7 +29,7 @@ api:
 
 webclient:
   ## Enable to set google tag manage id
-  googleTagManager: "GTM-XXXXX"
+  # googleTagManager: "GTM-XXXXX"
   replicaCount: 2
 
 ingress:

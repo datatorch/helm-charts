@@ -1,5 +1,5 @@
 {{- if .Values.postgresql.enabled }}
-Using subchart for postgresql.
+Using subchart for postgresql. It is not recommend to run a database in your cluster.
 {{- end }}
 {{- if .Values.redis.enabled }}
 Using subchart for redis.

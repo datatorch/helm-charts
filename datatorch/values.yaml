@@ -1,23 +1,33 @@
-
 licenseEmail: "your-email@company.com"
 licenseKey: "your-key"
 
-secret: "-- Place Random Key Here --"
+secret: "a-random-key"
 apiFQDN: "http://datatorch.io/api"
 webclientFQDN: "http://datatorch.io"
 
+webclient:
+  tag: "258"
+  ## Enable to set google tag manage id
+  # googleTagManager: 'GTM-XXXXX'
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 80
+
 api:
+  tag: "276"
   replicaCount: 1
   service:
     type: ClusterIP
     port: 80
 
 tasks:
+  tag: "275"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
 backend:
-  logging: 'verbose'
+  logging: "verbose"
   ## These can be used to set the connections.
   ## If any of the values are null, it will default to the appropriate subchart
   ## values.
@@ -34,17 +44,10 @@ backend:
   #   port: null
   #   password: null
   #   db: null
-  pvc: {}
+  pvc:
+    {}
     # storage: 4Gi
     # storageClassName: azurefile
-
-webclient:
-  ## Enable to set google tag manage id
-  # googleTagManager: 'GTM-XXXXX'
-  replicaCount: 2
-  service:
-    type: ClusterIP
-    port: 80
 
 ingress:
   enabled: true
@@ -95,7 +98,7 @@ postgresql:
 
 redis:
   enabled: true
-  password: 'redispassword'
+  password: "redispassword"
   redisPort: 6379
 
 nameOverride: ""
