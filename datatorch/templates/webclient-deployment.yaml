@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "datatorch.fullname" . }}-webclient
+  labels:
+    app: {{ include "datatorch.name" . }}-webclient
+    {{- include "datatorch.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.webclient.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "datatorch.name" . }}-webclient
+      {{- include "datatorch.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "datatorch.name" . }}-webclient
+        {{- include "datatorch.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: datatorch-webclient
+          image: gcr.io/datatorch/webclient:258
+          env:
+            - name: API_FQDN
+              value: {{ .Values.apiFQDN }}
+            - name: GTM
+              value: {{ default "" .Values.webclient.googleTagManager }}
+          ports:
+            - containerPort: 3000
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 3000
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 10
+      imagePullSecrets:
+        - name: regcred

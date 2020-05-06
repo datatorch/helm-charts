@@ -1,0 +1,1 @@
+cat gcr-pull.json | docker login -u _json_key --password-stdin https://gcr.io

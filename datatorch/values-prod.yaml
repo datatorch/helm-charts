@@ -1,0 +1,49 @@
+licenseEmail: "your-email@company.com"
+licenseKey: "your-key"
+
+secret: "-- Place Random Key Here --"
+apiFQDN: "https://datatorch.io/api"
+webclientFQDN: "https://datatorch.io"
+
+api:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+  ## These can be used to set the connections.
+  ## If any of the values are null, it will default to the appropriate subchart
+  ## values.
+  database: {}
+  # database:
+  #   host: null
+  #   name: null
+  #   username: null
+  #   password: null
+  #   port: null
+  redis: {}
+  # redis:
+  #   host: null
+  #   port: null
+  #   password: null
+  #   db: null
+
+webclient:
+  ## Enable to set google tag manage id
+  googleTagManager: "GTM-XXXXX"
+  replicaCount: 2
+
+ingress:
+  enabled: true
+  ## Add this to set the host of the ingress path. Default is all hosts.
+  # host: "annotator.example.com"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    cert-manager.io/issuer: "letsencrypt-prod"
+    cert-manager.io/acme-challenge-type: http01
+  tls: []
+
+nginx-ingress:
+  enabled: true
+  controller:
+    replicaCount: 2

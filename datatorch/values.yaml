@@ -1,0 +1,102 @@
+
+licenseEmail: "your-email@company.com"
+licenseKey: "your-key"
+
+secret: "-- Place Random Key Here --"
+apiFQDN: "http://datatorch.io/api"
+webclientFQDN: "http://datatorch.io"
+
+api:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 80
+
+tasks:
+  replicaCount: 1
+
+# Backend connections, shared between api and task system
+backend:
+  logging: 'verbose'
+  ## These can be used to set the connections.
+  ## If any of the values are null, it will default to the appropriate subchart
+  ## values.
+  database: {}
+  # database:
+  #   host: null
+  #   name: null
+  #   username: null
+  #   password: null
+  #   port: null
+  redis: {}
+  # redis:
+  #   host: null
+  #   port: null
+  #   password: null
+  #   db: null
+  pvc: {}
+    # storage: 4Gi
+    # storageClassName: azurefile
+
+webclient:
+  ## Enable to set google tag manage id
+  # googleTagManager: 'GTM-XXXXX'
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 80
+
+ingress:
+  enabled: true
+  ## Add this to set the host of the ingress path. Default is all hosts.
+  # host: "annotator.example.com"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # cert-manager.io/issuer: "letsencrypt-prod"
+    # cert-manager.io/acme-challenge-type: http01
+  tls: []
+  #  - secretName: datatorch-tls
+  #    hosts:
+  #      - datatorch.io
+
+nginx-ingress:
+  enabled: true
+  controller:
+    replicaCount: 2
+
+postgresql:
+  enabled: true
+
+  postgresqlUsername: "postgres"
+  postgresqlPassword: "postgres"
+  postgresqlDatabase: "datatorch"
+  postgresqlDataDir: /bitnami/postgresql/data
+
+  service:
+    type: ClusterIP
+    port: 5432
+    ## Specify the nodePort value for the LoadBalancer and NodePort service types.
+    # nodePort:
+    annotations: {}
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 11.7.0-debian-10-r73
+    pullPolicy: IfNotPresent
+  persistence:
+    enabled: true
+    size: 8Gi
+    mountedPath: /bitnami/postgresql
+    accessMode:
+      - ReadWriteOnce
+    annotations: {}
+  extraEnv: []
+
+redis:
+  enabled: true
+  password: 'redispassword'
+  redisPort: 6379
+
+nameOverride: ""
+fullnameOverride: ""

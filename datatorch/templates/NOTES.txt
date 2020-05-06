@@ -1,0 +1,6 @@
+{{- if .Values.postgresql.enabled }}
+Using subchart for postgresql.
+{{- end }}
+{{- if .Values.redis.enabled }}
+Using subchart for redis.
+{{- end }}

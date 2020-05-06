@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  webclient:
+    container_name: datatorch-webclient
+    image: gcr.io/datatorch/webclient:latest
+    depends_on:
+      - graphql
+      - postgres
+      - redis
+    environment:
+      - BACKEND=http://graphql:4000/graphql
+    ports:
+      - 3000:3000
+
+  graphql:
+    container_name: datatorch-graphql
+    image: gcr.io/datatorch/graphql:latest
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - data:/app/data
+    environment:
+      - SECRET=<RandomGeneratedValue>
+      - LICENSE_EMAIL=<LicenseEmail>
+      - LICENSE_KEY=<LicenseKey>
+      - DATABASE_HOST=postgres
+      - DATABASE_NAME=postgres
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgrespassword
+      - PRINT_CONFIG=false
+    ports:
+      - 4000:4000
+
+  bullmq:
+    container_name: datatorch-bullmq
+    image: gcr.io/datatorch/bullmq:latest
+    volumes:
+      - data:/app/data
+    depends_on:
+      - postgres
+      - redis
+
+  # pgadmin:
+  #   container_name: datatorch-pgadmin
+  #   image: dpage/pgadmin4:latest
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - 53621:80
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: pg@example.com
+  #     PGADMIN_DEFAULT_PASSWORD: postgrespassword
+
+  redis:
+    container_name: datatorch-redis
+    image: redis:5-alpine
+    ports:
+      - 6379:6379
+
+  postgres:
+    container_name: datatorch-postgres
+    image: postgres:12-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+
+volumes:
+  data:
+  pgdata:

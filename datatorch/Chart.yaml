@@ -1,0 +1,26 @@
+apiVersion: v2
+type: application
+name: datatorch
+description: A Helm chart for DataTorch
+version: 0.1.6
+appVersion: 0.0.4
+keywords:
+  - annotation
+  - machine learning
+  - data
+maintainers:
+  - name: DataTorch Support Team
+    email: support@datatorch.io
+dependencies:
+  - name: postgresql
+    version: ~8.8.0
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+  - name: redis
+    version: ~10.6.0
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+  - name: nginx-ingress
+    version: ~1.36.0
+    repository: "https://kubernetes-charts.storage.googleapis.com/"
+    condition: nginx-ingress.enabled

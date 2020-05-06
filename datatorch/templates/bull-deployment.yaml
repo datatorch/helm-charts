@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "datatorch.fullname" . }}-tasks
+  labels:
+    app: {{ include "datatorch.name" . }}-tasks
+    {{- include "datatorch.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.tasks.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "datatorch.name" . }}-tasks
+      {{- include "datatorch.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "datatorch.name" . }}-tasks
+        {{- include "datatorch.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: datatorch-tasks
+          image: gcr.io/datatorch/bullmq:latest
+          imagePullPolicy: Always
+          env:
+            - name: LOGGER_LEVEL
+              value: {{ .Values.backend.logging }}
+              # Database configuration
+            - name: DATABASE_HOST
+              value: {{ default (printf "%s-postgresql" .Release.Name) .Values.backend.database.host | quote}}
+            - name: DATABASE_NAME
+              value: {{ default .Values.postgresql.postgresqlDatabase .Values.backend.database.name | quote }}
+            - name: DATABASE_USERNAME
+              value: {{ default .Values.postgresql.postgresqlUsername .Values.backend.database.username | quote}}
+            - name: DATABASE_PASSWORD
+              value: {{ default .Values.postgresql.postgresqlPassword .Values.backend.database.password | quote }}
+            - name: DATASET_PORT
+              value: {{ default .Values.postgresql.service.port .Values.backend.database.port | quote }}
+              # Redis configuration
+            - name: REDIS_HOST
+              value: {{ default (printf "%s-redis-master" .Release.Name) .Values.backend.redis.host | quote}}
+            - name: REDIS_PORT
+              value: {{ default .Values.redis.redisPort .Values.backend.redis.port | quote}}
+            - name: REDIS_PASSWORD
+              value: {{ default .Values.redis.password .Values.backend.redis.password | quote }}
+          ports:
+            - containerPort: 4000
+      imagePullSecrets:
+        - name: regcred
