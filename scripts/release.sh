@@ -7,6 +7,8 @@ helm repo index --url "https://charts.datatorch.io" --merge index.yaml ../files-
 mv ../files-to-gh/*.tgz ./
 mv ../files-to-gh/index.yaml ./index.yaml
 
-# git stash
-# git checkout gh-pages
-# yes | cp -rf ../files-to-gh/* ./
+git add -A
+git commit -m "updated charts"
+git push
+
+git checkout master
