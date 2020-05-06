@@ -3,7 +3,6 @@ type: application
 name: datatorch
 description: A Helm chart for DataTorch
 version: 0.1.6
-appVersion: 0.0.4
 keywords:
   - annotation
   - machine learning
