@@ -1,0 +1,5 @@
+controller:
+  service:
+    loadBalancerIP: "52.179.112.29"
+    annotations:
+      service.beta.kubernetes.io/azure-dns-label-name: "datatorch-aks-ingress"

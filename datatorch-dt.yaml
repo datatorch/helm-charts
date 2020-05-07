@@ -1,0 +1,86 @@
+licenseEmail: "jsbroks@gmail.com"
+licenseKey: "977b656a-bf0e-4cbc-a7d9-37c3cda5b6f6"
+
+secret: "-- Place Random Key Here --"
+apiFQDN: "https://datatorch.io/api"
+webclientFQDN: "https://datatorch.io"
+
+api:
+  replicaCount: 1
+
+backend:
+  extraContainers:
+    - name: azure-pgbouncer-sidecar
+      image: mcr.microsoft.com/azure-oss-db-tools/pgbouncer-sidecar:latest
+      ports:
+        - containerPort: 5432
+      volumeMounts:
+        - name: configfiles
+          mountPath: "/etc/pgbouncer"
+          readOnly: true
+      livenessProbe:
+        tcpSocket:
+          port: 5432
+        periodSeconds: 60
+      lifecycle:
+        preStop:
+          exec:
+            command: ["/bin/sh", "-c", "killall -INT pgbouncer && sleep 120"]
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["all"]
+
+  extraVolumes:
+    - name: configfiles
+      secret:
+        secretName: azure-pgbouncer-config
+  database:
+    host: "127.0.0.1"
+    name: "datatorch"
+    username: "postgres@datatorch"
+    password: "n#Q!nG7#vE?23h%t"
+    port: "5432"
+  redis: {}
+
+webclient:
+  googleTagManager: "GTM-WTB9B86"
+  replicaCount: 1
+
+ingress:
+  enabled: true
+  host: datatorch.io
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    cert-manager.io/issuer: "letsencrypt-prod"
+    cert-manager.io/acme-challenge-type: http01
+  tls:
+    - secretName: datatorch-tls
+      hosts:
+        - datatorch.io
+        - customer.datatorch.io
+  extraRules:
+    - host: customer.datatorch.io
+      http:
+        paths:
+          - backend:
+              serviceName: datatorch-customer-portal
+              servicePort: http
+            path: /(.*)
+
+nginx-ingress:
+  enabled: true
+  controller:
+    service:
+      loadBalancerIP: "52.179.112.29"
+      annotations:
+        service.beta.kubernetes.io/azure-dns-label-name: "datatorch-aks-ingress"
+
+redis:
+  enabled: true
+  password: "redispassword"
+  redisPort: 6379
+
+postgresql:
+  enabled: false
