@@ -42,7 +42,7 @@ spec:
             - name: API_FQDN
               value: {{ .Values.apiFQDN | quote }}
             - name: JWT_HTTP_ONLY
-              value: "true"
+              value: "false"
             - name: JWT_SAME_SITE
               value: "strict"
             - name: DISABLE_LOCAL_STORAGE
