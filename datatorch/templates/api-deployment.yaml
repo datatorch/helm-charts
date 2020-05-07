@@ -17,6 +17,8 @@ spec:
         app: {{ include "datatorch.name" . }}-api
         {{- include "datatorch.selectorLabels" . | nindent 8 }}
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: datatorch-api
           image: gcr.io/datatorch/graphql:{{ .Values.api.tag }}
@@ -26,9 +28,15 @@ spec:
             - name: SECRET
               value: {{ .Values.secret | quote }}
             - name: LICENSE_EMAIL
-              value: {{ .Values.licenseEmail | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "datatorch.fullname" . }}-license
+                  key: licenseEmail
             - name: LICENSE_KEY
-              value: {{ .Values.licenseKey | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "datatorch.fullname" . }}-license
+                  key: licenseKey
             - name: FRONTEND_FQDN
               value: {{ .Values.webclientFQDN | quote }}
             - name: API_FQDN
@@ -41,22 +49,28 @@ spec:
               value: "true"
               # Database configuration
             - name: DATABASE_HOST
-              value: {{ default (printf "%s-postgresql" .Release.Name) .Values.backend.database.host | quote}}
+              value: {{ .Values.backend.database.host | default (printf "%s-postgresql" .Release.Name) | quote}}
             - name: DATABASE_NAME
-              value: {{ default .Values.postgresql.postgresqlDatabase .Values.backend.database.name | quote }}
+              value: {{ .Values.backend.database.name | default .Values.postgresql.postgresqlDatabase | quote }}
             - name: DATABASE_USERNAME
-              value: {{ default .Values.postgresql.postgresqlUsername .Values.backend.database.username | quote}}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "datatorch.fullname" . }}-postgres
+                  key: username
             - name: DATABASE_PASSWORD
-              value: {{ default .Values.postgresql.postgresqlPassword .Values.backend.database.password | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "datatorch.fullname" . }}-postgres
+                  key: password
             - name: DATASET_PORT
-              value: {{ default .Values.postgresql.service.port .Values.backend.database.port | quote }}
+              value: {{ .Values.backend.database.port | default .Values.postgresql.service.port | quote }}
               # Redis configuration
             - name: REDIS_HOST
-              value: {{ default (printf "%s-redis-master" .Release.Name) .Values.backend.redis.host | quote}}
+              value: {{ .Values.backend.redis.host | default (printf "%s-redis-master" .Release.Name) | quote}}
             - name: REDIS_PORT
-              value: {{ default .Values.redis.redisPort .Values.backend.redis.port | quote}}
+              value: {{ .Values.backend.redis.port | default .Values.redis.redisPort | quote}}
             - name: REDIS_PASSWORD
-              value: {{ default .Values.redis.password .Values.backend.redis.password | quote }}
+              value: {{ .Values.backend.redis.password  | default .Values.redis.password | quote }}
           ports:
             - containerPort: 4000
           # livenessProbe:
@@ -65,5 +79,12 @@ spec:
           #     port: 4000
           #   initialDelaySeconds: 60
           #   periodSeconds: 10
-      imagePullSecrets:
-        - name: regcred
+        {{- if .Values.backend.extraContainers }}
+        {{- toYaml .Values.backend.extraContainers | nindent 8 }}
+        {{- end }}
+      volumes:
+        {{- if .Values.backend.extraVolumes }}
+        {{- toYaml .Values.backend.extraVolumes | nindent 8 }}
+        {{- end }}
+
+      

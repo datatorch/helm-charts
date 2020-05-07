@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "datatorch.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- .Values.nameOverride | default .Chart.Name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -56,8 +56,8 @@ Create the name of the service account to use
 */}}
 {{- define "datatorch.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "datatorch.fullname" .) .Values.serviceAccount.name }}
+    {{ .Values.serviceAccount.name | default (include "datatorch.fullname" .) }}
 {{- else -}}
-    {{ default "default" .Values.serviceAccount.name }}
+    {{ .Values.serviceAccount.name | default "default" }}
 {{- end -}}
 {{- end -}}

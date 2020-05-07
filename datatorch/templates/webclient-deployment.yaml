@@ -22,9 +22,9 @@ spec:
           image: gcr.io/datatorch/webclient:{{ .Values.webclient.tag }}
           env:
             - name: API_FQDN
-              value: {{ .Values.apiFQDN }}
+              value: {{ .Values.apiFQDN | quote }}
             - name: GTM
-              value: {{ default "" .Values.webclient.googleTagManager }}
+              value: {{ .Values.webclient.googleTagManager | default "" | quote }}
           ports:
             - containerPort: 3000
           # livenessProbe:

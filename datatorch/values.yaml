@@ -2,8 +2,8 @@ licenseEmail: "your-email@company.com"
 licenseKey: "your-key"
 
 secret: "a-random-key"
-apiFQDN: "http://datatorch.io/api"
-webclientFQDN: "http://datatorch.io"
+apiFQDN: "http://0.0.0.0/api"
+webclientFQDN: "http://0.0.0.0"
 
 webclient:
   tag: "258"
@@ -15,19 +15,25 @@ webclient:
     port: 80
 
 api:
-  tag: "276"
+  tag: "280"
   replicaCount: 1
   service:
     type: ClusterIP
     port: 80
 
 tasks:
-  tag: "275"
+  tag: "281"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
 backend:
   logging: "verbose"
+
+  # sidecar extra containers for tasks system and API.
+  # Useful for database connection pooling
+  extraContainers: []
+  extraVolumes: []
+
   ## These can be used to set the connections.
   ## If any of the values are null, it will default to the appropriate subchart
   ## values.
@@ -62,6 +68,7 @@ ingress:
   #  - secretName: datatorch-tls
   #    hosts:
   #      - datatorch.io
+  extraRules: []
 
 nginx-ingress:
   enabled: true

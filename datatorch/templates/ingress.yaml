@@ -32,4 +32,8 @@ spec:
           serviceName: {{ include "datatorch.fullname" . }}-webclient
           servicePort: http
         path: /(.*)
+  {{- if .Values.ingress.extraRules }}
+  {{- toYaml .Values.ingress.extraRules | nindent 2 }}
+  {{- end }}
+
 {{- end }}
