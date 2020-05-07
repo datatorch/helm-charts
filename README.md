@@ -6,11 +6,6 @@ datasets.
 Note: You must have a license key and the image pull secret for this chart to 
 work.
 
-```bash
-helm repo add datatorch https://charts.datatorch.io
-helm install my-release datatorch/datatorch
-```
-
 ## Introduction
 
 This chart bootstraps a DataTorch deployment on Kubernetes cluster using Helm v3
@@ -19,9 +14,14 @@ package manager.
 ## Prerequisites
 
 - Helm 3.0+
-- Kubernetes 1.12+
+- Kubernetes 1.13+ (1.15+ for ssl)
 
 ## Installing Chart
+
+1. Add datatorch repo `helm repo add datatorch https://charts.datatorch.io`
+1. Use regcred script to create image pull secret
+2. Update values.yaml with FQDN's, database connections and license
+3. Deploy the instance with helm install (shown below)
 
 To install the chart with release name `my-release`:
 
@@ -30,8 +30,7 @@ helm install my-release datatorch/datatorch
 ```
 
 The command deploys DataTorch on kubernetes cluster in the default
-configuration. The Parameters section lists the parameters that can be
-configured during installation.
+configuration.
 
 ## Uninstalling Chart
 
@@ -44,20 +43,14 @@ helm delete my-release
 The command removes all the Kubernetes components associated with the chart and
 deletes the release.
 
-## Parameters
-
 ## SSL with NGINX and Cert-manager
 
 Run the following commands to install cert-manager.
 
-```bash
-# Add the Jetstack Helm repository
-helm repo add jetstack https://charts.jetstack.io
-# Update your local Helm chart repository cache
-helm repo update
-# Install the cert-manager Helm chart
-helm install cert-manager --namespace kube-system --version v0.14.2 jetstack/cert-manager
-```
+1. `sh scripts/install-certmanager.sh`
+2. `kubectl apply -f ssl/issuer-prod.yaml`
+3. `kubectl apply -f ssl/issuer-staging.yaml`
+4. Add annotations and tls to ingress as shown in below.
 
 Two issuers will be created (when testing used the `letsencrypt-staging`).
 Change the fields in each issuer to point to your email address. Once completed,
@@ -82,3 +75,9 @@ ingress:
       hosts:
         - HOST_DOMAIN
 ```
+
+## pgbouncer
+
+For Azure using managed postgres instance add [pgbouncer](https://hub.docker.com/_/microsoft-azure-oss-db-tools-pgbouncer-sidecar) to speed up connection.
+
+The `backend` section has a `extraContainers` and `extraVolumes` section for this.
