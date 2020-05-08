@@ -9,6 +9,3 @@ mv ../files-to-gh/index.yaml ./index.yaml
 
 git add -A
 git commit -m "updated charts"
-git push
-
-git checkout master
