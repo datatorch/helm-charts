@@ -2,7 +2,7 @@ apiVersion: v2
 type: application
 name: datatorch
 description: A Helm chart for DataTorch
-version: 0.2.1
+version: 0.2.2
 keywords:
   - annotation
   - machine learning
