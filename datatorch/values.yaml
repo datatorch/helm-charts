@@ -6,7 +6,7 @@ apiFQDN: "http://0.0.0.0/api"
 webclientFQDN: "http://0.0.0.0"
 
 webclient:
-  tag: "313"
+  tag: "320"
   ## Enable to set google tag manage id
   # googleTagManager: 'GTM-XXXXX'
   replicaCount: 2
@@ -15,14 +15,14 @@ webclient:
     port: 80
 
 api:
-  tag: "312"
+  tag: "321"
   replicaCount: 1
   service:
     type: ClusterIP
     port: 80
 
 tasks:
-  tag: "303"
+  tag: "317"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
