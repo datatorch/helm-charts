@@ -21,7 +21,7 @@ spec:
         - name: regcred
       containers:
         - name: datatorch-tasks
-          image: gcr.io/datatorch/bullmq:{{ .Values.tasks.tag }}
+          image: {{ .Values.tasks.image }}:{{ .Values.tasks.tag }}
           imagePullPolicy: Always
           env:
             - name: LOGGER_LEVEL
