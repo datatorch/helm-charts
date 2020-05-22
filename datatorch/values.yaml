@@ -17,7 +17,7 @@ webclient:
 
 api:
   image: "gcr.io/datatorch/graphql"
-  tag: "362"
+  tag: "368"
   replicaCount: 1
   service:
     type: ClusterIP
@@ -25,7 +25,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
-  tag: "361"
+  tag: "369"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
