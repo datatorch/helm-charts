@@ -62,8 +62,10 @@ spec:
                 secretKeyRef:
                   name: {{ include "datatorch.fullname" . }}-postgres
                   key: password
-            - name: DATASET_PORT
+            - name: DATABASE_PORT
               value: {{ .Values.backend.database.port | default .Values.postgresql.service.port | quote }}
+            - name: DATABASE_SSL
+              value: {{ .Values.backend.database.ssl | default "false" | quote }}
               # Redis configuration
             - name: REDIS_HOST
               value: {{ .Values.backend.redis.host | default (printf "%s-redis-master" .Release.Name) | quote}}
