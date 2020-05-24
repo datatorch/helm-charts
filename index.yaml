@@ -2,6 +2,35 @@ apiVersion: v1
 entries:
   datatorch:
   - apiVersion: v2
+    created: "2020-05-24T18:27:08.757072885-04:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: ~8.8.0
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: ~10.6.0
+    - condition: nginx-ingress.enabled
+      name: nginx-ingress
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: ~1.36.0
+    description: A Helm chart for DataTorch
+    digest: a794fba813c491d6237eadecdd43e26e32ae6307c66093651c1ee3512fe50c7b
+    keywords:
+    - annotation
+    - machine learning
+    - data
+    maintainers:
+    - email: support@datatorch.io
+      name: DataTorch Support Team
+    name: datatorch
+    type: application
+    urls:
+    - https://charts.datatorch.io/datatorch-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2020-05-23T21:38:09.213956726-04:00"
     dependencies:
     - condition: postgresql.enabled
@@ -204,4 +233,4 @@ entries:
     urls:
     - https://charts.datatorch.io/datatorch-0.1.6.tgz
     version: 0.1.6
-generated: "2020-05-23T21:38:09.188091932-04:00"
+generated: "2020-05-24T18:27:08.744083468-04:00"
