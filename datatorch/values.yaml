@@ -7,17 +7,17 @@ webclientFQDN: "http://0.0.0.0"
 
 webclient:
   image: "gcr.io/datatorch/webclient"
-  tag: "385"
+  tag: "396"
   ## Enable to set google tag manage id
   # googleTagManager: 'GTM-XXXXX'
-  replicaCount: 2
+  replicaCount: 1
   service:
     type: ClusterIP
     port: 80
 
 api:
   image: "gcr.io/datatorch/graphql"
-  tag: "382"
+  tag: "395"
   replicaCount: 1
   service:
     type: ClusterIP
@@ -25,7 +25,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
-  tag: "381"
+  tag: "392"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
@@ -77,6 +77,11 @@ ingress:
 
 nginx-ingress:
   enabled: true
+  defaultBackend:
+    serviceAccount:
+      create: false
+  serviceAccount:
+    create: false
   controller:
     replicaCount: 2
 
