@@ -77,6 +77,8 @@ ingress:
 
 nginx-ingress:
   enabled: true
+  rbac:
+    create: false
   defaultBackend:
     serviceAccount:
       create: false
