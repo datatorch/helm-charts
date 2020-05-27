@@ -78,13 +78,6 @@ nginx-ingress:
   enabled: true
   rbac:
     create: false
-  defaultBackend:
-    serviceAccount:
-      create: false
-  serviceAccount:
-    create: false
-  controller:
-    replicaCount: 2
 
 postgresql:
   enabled: true
