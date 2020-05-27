@@ -25,7 +25,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
-  tag: "427"
+  tag: "430"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
