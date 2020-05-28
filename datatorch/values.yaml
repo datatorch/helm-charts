@@ -53,7 +53,8 @@ backend:
   #   port: null
   #   password: null
   #   db: null
-  pvc: {}
+  pvc:
+    {}
     # storage: 4Gi
     # storageClassName: azurefile
 
@@ -76,8 +77,6 @@ ingress:
 
 nginx-ingress:
   enabled: true
-  rbac:
-    create: false
 
 postgresql:
   enabled: true
@@ -103,7 +102,7 @@ postgresql:
     size: 8Gi
     mountedPath: /bitnami/postgresql
     accessMode:
-    - ReadWriteOnce
+      - ReadWriteOnce
     annotations: {}
   extraEnv: []
 
