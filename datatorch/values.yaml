@@ -7,7 +7,7 @@ webclientFQDN: "http://0.0.0.0"
 
 webclient:
   image: "gcr.io/datatorch/webclient"
-  tag: "435"
+  tag: "489"
   ## Enable to set google tag manage id
   # googleTagManager: 'GTM-XXXXX'
   replicaCount: 1
@@ -17,7 +17,7 @@ webclient:
 
 api:
   image: "gcr.io/datatorch/graphql"
-  tag: "432"
+  tag: "486"
   replicaCount: 1
   service:
     type: ClusterIP
@@ -25,7 +25,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
-  tag: "430"
+  tag: "480"
   replicaCount: 1
 
 # Backend connections, shared between api and task system
@@ -53,8 +53,7 @@ backend:
   #   port: null
   #   password: null
   #   db: null
-  pvc:
-    {}
+  pvc: {}
     # storage: 4Gi
     # storageClassName: azurefile
 
@@ -102,7 +101,7 @@ postgresql:
     size: 8Gi
     mountedPath: /bitnami/postgresql
     accessMode:
-      - ReadWriteOnce
+    - ReadWriteOnce
     annotations: {}
   extraEnv: []
 
