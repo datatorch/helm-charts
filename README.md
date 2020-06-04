@@ -1,4 +1,11 @@
-# Helm Charts
+<p align="center">
+    <img src="https://raw.githubusercontent.com/datatorch/documentation/master/docs/.vuepress/public/helm.png" width="200" />
+</p>
+
+<h1 align="center">
+  DataTorch Helm Charts
+</h1>
+<h4 align="center">Scale DataTorch on Kubernetes a production-grade container orchestrator.</h4>
 
 DataTorch is a scalable annotation platform build for sharing and creating
 datasets.
