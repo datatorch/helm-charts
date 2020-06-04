@@ -7,16 +7,16 @@
 </h1>
 <h4 align="center">Scale DataTorch on Kubernetes a production-grade container orchestrator.</h4>
 
+## Introduction
+
 DataTorch is a scalable annotation platform build for sharing and creating
 datasets.
 
-Note: You must have a license key and the image pull secret for this chart to 
-work.
-
-## Introduction
-
 This chart bootstraps a DataTorch deployment on Kubernetes cluster using Helm v3
 package manager.
+
+Note: You must have a license key and the image pull secret for this chart to 
+work.
 
 ## Prerequisites
 
