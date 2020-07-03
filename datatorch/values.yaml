@@ -14,6 +14,7 @@ webclient:
   service:
     type: ClusterIP
     port: 80
+  # resources: {}
 
 api:
   image: "gcr.io/datatorch/graphql"
@@ -22,11 +23,13 @@ api:
   service:
     type: ClusterIP
     port: 80
+  # resources: {}
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
   tag: "591"
   replicaCount: 1
+  # resources: {}
 
 # Backend connections, shared between api and task system
 backend:

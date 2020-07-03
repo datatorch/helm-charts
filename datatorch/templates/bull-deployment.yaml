@@ -54,6 +54,9 @@ spec:
               value: {{ .Values.backend.redis.password | default .Values.redis.password | quote }}
           ports:
             - containerPort: 4000
+          {{- if .Values.api.resources }}
+          resources: {{- toYaml .Values.tasks.resources | nindent 12 }}
+          {{- end }}
         {{- if .Values.backend.extraContainers }}
         {{- toYaml .Values.backend.extraContainers | nindent 8 }}
         {{- end }}

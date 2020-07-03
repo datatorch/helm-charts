@@ -27,6 +27,9 @@ spec:
               value: {{ .Values.webclient.googleTagManager | default "" | quote }}
           ports:
             - containerPort: 3000
+          {{- if .Values.api.resources }}
+          resources: {{- toYaml .Values.tasks.resources | nindent 12 }}
+          {{- end }}
           # livenessProbe:
           #   httpGet:
           #     path: /

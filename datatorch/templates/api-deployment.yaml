@@ -79,8 +79,12 @@ spec:
           #   httpGet:
           #     path: /graphql
           #     port: 4000
+          #     schema: HTTP
           #   initialDelaySeconds: 60
           #   periodSeconds: 10
+          {{- if .Values.api.resources }}
+          resources: {{- toYaml .Values.api.resources | nindent 12 }}
+          {{- end }}
         {{- if .Values.backend.extraContainers }}
         {{- toYaml .Values.backend.extraContainers | nindent 8 }}
         {{- end }}

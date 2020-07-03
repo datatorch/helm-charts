@@ -1,12 +1,12 @@
 dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
-  version: 8.8.0
+  version: ~8.8.0
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 10.6.9
+  version: ~10.6.0
 - name: nginx-ingress
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: ~1.36.0
-digest: sha256:53294218eca94fe9e38ad432c90cf5c4f4402c7e1cb5cd313e4c379d0b562334
-generated: "2020-04-21T15:55:14.6222392-04:00"
+digest: sha256:b6774dd33e410feb178dac05d3a831a43a9aa9ef8f6995c8b7c04a9ce0bcab1d
+generated: "2020-07-02T20:52:49.197887599-04:00"
