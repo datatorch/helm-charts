@@ -18,7 +18,7 @@ webclient:
 
 api:
   image: "gcr.io/datatorch/graphql"
-  tag: "593"
+  tag: "596"
   replicaCount: 1
   service:
     type: ClusterIP
