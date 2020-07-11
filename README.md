@@ -15,7 +15,7 @@ datasets.
 This chart bootstraps a DataTorch deployment on Kubernetes cluster using Helm v3
 package manager.
 
-Note: You must have a license key and the image pull secret for this chart to 
+Note: You must have a license key and the image pull secret for this chart to
 work.
 
 ## Prerequisites
@@ -27,8 +27,8 @@ work.
 
 1. Add datatorch repo `helm repo add datatorch https://charts.datatorch.io`
 1. Use regcred script to create image pull secret
-2. Update values.yaml with FQDN's, database connections and license
-3. Deploy the instance with helm install (shown below)
+1. Update values.yaml with FQDN's, database connections and license
+1. Deploy the instance with helm install (shown below)
 
 To install the chart with release name `my-release`:
 
@@ -54,7 +54,7 @@ deletes the release.
 
 Run the following commands to install cert-manager.
 
-1. `sh scripts/install-certmanager.sh`
+1. `sh ssl/install-certmanager.sh`
 2. `kubectl apply -f ssl/issuer-prod.yaml`
 3. `kubectl apply -f ssl/issuer-staging.yaml`
 4. Add annotations and tls to ingress as shown in below.
