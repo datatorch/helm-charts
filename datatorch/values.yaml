@@ -27,7 +27,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/bullmq"
-  tag: "732"
+  tag: "733"
   replicaCount: 1
   # resources: {}
 
