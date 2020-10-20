@@ -36,12 +36,13 @@ spec:
               port: 3000
             initialDelaySeconds: 40
             periodSeconds: 10
+            failureThreshold: 5
           readinessProbe:
             httpGet:
               path: /
               port: 3000
             initialDelaySeconds: 15
-            periodSeconds: 10
+            periodSeconds: 5
 
       imagePullSecrets:
         - name: regcred
