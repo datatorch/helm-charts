@@ -51,9 +51,7 @@ spec:
             - name: REDIS_PORT
               value: {{ .Values.backend.redis.port | default .Values.redis.redisPort | quote}}
             - name: REDIS_PASSWORD
-              value: {{ .Values.backend.redis.password | default .Values.redis.password | quote }}
-          ports:
-            - containerPort: 4000
+              value: {{ .Values.backend.redis.password | default .Values.redis.password | quote }}            
           {{- if .Values.api.resources }}
           resources: {{- toYaml .Values.tasks.resources | nindent 12 }}
           {{- end }}
