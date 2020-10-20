@@ -30,11 +30,19 @@ spec:
           {{- if .Values.api.resources }}
           resources: {{- toYaml .Values.tasks.resources | nindent 12 }}
           {{- end }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: 3000
-          #   initialDelaySeconds: 30
-          #   periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 40
+            periodSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 5
+
       imagePullSecrets:
         - name: regcred
