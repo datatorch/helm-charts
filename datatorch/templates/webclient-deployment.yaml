@@ -32,17 +32,18 @@ spec:
           {{- end }}
           livenessProbe:
             httpGet:
-              path: /
+              path: /health/liveness
               port: 3000
-            initialDelaySeconds: 40
+            initialDelaySeconds: 60
             periodSeconds: 10
             failureThreshold: 5
           readinessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 15
+            initialDelaySeconds: 30
             periodSeconds: 5
+            failureThreshold: 3
 
       imagePullSecrets:
         - name: regcred
