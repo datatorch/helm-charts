@@ -24,14 +24,14 @@ spec:
   - host: {{ .Values.ingress.host }}
     http:
       paths:
-      - backend:
+      - path: /api/(.*)
+        backend:
           serviceName: {{ include "datatorch.fullname" . }}-api
           servicePort: http
-        path: /api/(.*)
-      - backend:
+      - path: /(.*)
+        backend:
           serviceName: {{ include "datatorch.fullname" . }}-webclient
           servicePort: http
-        path: /(.*)
   {{- if .Values.ingress.extraRules }}
   {{- toYaml .Values.ingress.extraRules | nindent 2 }}
   {{- end }}
