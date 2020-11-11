@@ -18,7 +18,7 @@ webclient:
 
 api:
   image: "gcr.io/datatorch/api"
-  tag: "1109"
+  tag: "1113"
   replicaCount: 1
   service:
     type: ClusterIP
