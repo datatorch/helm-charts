@@ -37,10 +37,8 @@ spec:
                 secretKeyRef:
                   name: {{ include "datatorch.fullname" . }}-license
                   key: licenseKey
-            - name: FRONTEND_FQDN
-              value: {{ .Values.webclientFQDN | quote }}
-            - name: API_FQDN
-              value: {{ .Values.apiFQDN | quote }}
+            - name: FQDN
+              value: {{ .Values.fqdn | quote }}
             - name: JWT_HTTP_ONLY
               value: "false"
             - name: JWT_SAME_SITE

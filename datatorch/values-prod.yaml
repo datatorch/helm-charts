@@ -2,8 +2,7 @@ licenseEmail: "your-email@company.com"
 licenseKey: "your-key"
 
 secret: "-- Place Random Key Here --"
-apiFQDN: "https://datatorch.io/api"
-webclientFQDN: "https://datatorch.io"
+fqdn: "https://datatorch.io"
 
 api:
   replicaCount: 1

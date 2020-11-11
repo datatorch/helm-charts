@@ -21,8 +21,8 @@ spec:
         - name: datatorch-webclient
           image: {{ .Values.webclient.image }}:{{ .Values.webclient.tag }}
           env:
-            - name: API_FQDN
-              value: {{ .Values.apiFQDN | quote }}
+            - name: FQDN
+              value: {{ .Values.fqdn | quote }}
             - name: GTM
               value: {{ .Values.webclient.googleTagManager | default "" | quote }}
           ports:
