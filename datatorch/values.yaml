@@ -7,7 +7,7 @@ webclientFQDN: "http://0.0.0.0"
 
 webclient:
   image: "gcr.io/datatorch/webclient"
-  tag: "1111"
+  tag: "1115"
   ## Enable to set google tag manage id
   # googleTagManager: 'GTM-XXXXX'
   replicaCount: 1
