@@ -27,7 +27,7 @@ api:
 
 tasks:
   image: "gcr.io/datatorch/taskq"
-  tag: "1510"
+  tag: "1636"
   replicaCount: 1
   # resources: {}
 
