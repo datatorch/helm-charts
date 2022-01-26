@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: IngressClass
 metadata:
   name: {{ include "datatorch.fullname" . }}-ingress
   labels:
@@ -8,9 +8,11 @@ metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
+    ingressclass.kubernetes.io/is-default-class: "true"
   {{- end }}
 spec:
 {{- if .Values.ingress.tls }}
+  controller: k8s.io/ingress-nginx
   tls:
   {{- range .Values.ingress.tls }}
     - hosts:
