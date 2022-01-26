@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 apiVersion: networking.k8s.io/v1
-kind: IngressClass
+kind: Ingress
 metadata:
   name: {{ include "datatorch.fullname" . }}-ingress
   labels:
@@ -27,13 +27,19 @@ spec:
     http:
       paths:
       - path: /api
+        pathType: Prefix
         backend:
-          serviceName: {{ include "datatorch.fullname" . }}-api
-          servicePort: http
+          service:
+            name: {{ include "datatorch.fullname" . }}-api
+            port:
+              number: 80
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: {{ include "datatorch.fullname" . }}-webclient
-          servicePort: http
+          service:
+            name: {{ include "datatorch.fullname" . }}-webclient
+            port: 
+              number: 80
   {{- if .Values.ingress.extraRules }}
   {{- toYaml .Values.ingress.extraRules | nindent 2 }}
   {{- end }}
