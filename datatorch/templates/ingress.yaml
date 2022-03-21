@@ -12,7 +12,7 @@ metadata:
   {{- end }}
 spec:
 {{- if .Values.ingress.tls }}
-  controller: k8s.io/ingress-nginx
+  ingressClassName: k8s.io/ingress-nginx
   tls:
   {{- range .Values.ingress.tls }}
     - hosts:
